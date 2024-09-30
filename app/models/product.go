@@ -14,13 +14,13 @@ type Product struct {
 	UserID           string `gorm:"size:36;index"`
 	productImages    []ProductImage
 	Categories       []Category      `gorm:"many2many:product_categories;"`
-	SKU              string          `gorm:"size:100;index"`
+	Sku              string          `gorm:"size:100;index"`
 	Name             string          `gorm:"size:255"`
 	Slug             string          `gorm:"size:255"`
 	Price            decimal.Decimal `gorm:"type:decimal(16,2)"`
 	Stock            int
 	Weight           decimal.Decimal `gorm:"type:decimal(10,2)"`
-	ShortDescription string          `gorm:"size:255"`
+	ShortDescription string          `gorm:"type:text"`
 	Description      string          `gorm:"type:text`
 	Status           int
 	CreatedAt        time.Time
