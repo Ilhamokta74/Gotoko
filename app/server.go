@@ -36,6 +36,16 @@ type DBConfig struct {
 func (server *Server) Initialize(appConfig AppConfig, dbConfig DBConfig) {
 	fmt.Println("welcome to " + appConfig.AppName)
 
+	server.InitializeDB(dbConfig)
+	server.InitializeRoutes()
+}
+
+func (server *Server) Run(addr string) {
+	fmt.Printf("Listening on http://localhost%s \n", addr)
+	log.Fatal((http.ListenAndServe(addr, server.Router)))
+}
+
+func (server *Server) InitializeDB(dbConfig DBConfig) {
 	var err error
 
 	// Running Database
@@ -54,13 +64,16 @@ func (server *Server) Initialize(appConfig AppConfig, dbConfig DBConfig) {
 	if err != nil {
 		panic("Failed on connecting to the database server")
 	}
-	server.Router = mux.NewRouter()
-	server.InitializeRoutes()
-}
 
-func (server *Server) Run(addr string) {
-	fmt.Printf("Listening on http://localhost%s \n", addr)
-	log.Fatal((http.ListenAndServe(addr, server.Router)))
+	for _, model := range RegisterModels() {
+		err = server.DB.Debug().AutoMigrate(model.Model)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	fmt.Println("Database migrated Successfully")
 }
 
 func getEnv(key, fallback string) string {
