@@ -20,7 +20,7 @@ require (
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
-	github.com/unrolled/render v1.6.1 // indirect
+	github.com/unrolled/render v1.7.0 // indirect
 	github.com/urfave/cli v1.22.15 // indirect
 	golang.org/x/crypto v0.17.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
